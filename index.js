@@ -14,7 +14,7 @@ client.on('message', message => {
 		message.channel.send(`Sentiment Level: \`${sentimentScore}\``)
 	}
 	else if (message.author.id !== client.user.id) {
-		message.channel.send(`Message to be analyzed: ${message}`)
+		message.channel.send(`Message to be analyzed: ${message.content}`)
 	}
 })
 
