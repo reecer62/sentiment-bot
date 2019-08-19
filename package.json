@@ -22,6 +22,7 @@
   },
   "homepage": "https://github.com/reecer62/sentiment-bot#readme",
   "dependencies": {
-    "discord.js": "^11.5.1"
+    "discord.js": "^11.5.1",
+    "sentiment": "^5.0.1"
   }
 }
