@@ -20,5 +20,8 @@
   "bugs": {
     "url": "https://github.com/reecer62/sentiment-bot/issues"
   },
-  "homepage": "https://github.com/reecer62/sentiment-bot#readme"
+  "homepage": "https://github.com/reecer62/sentiment-bot#readme",
+  "dependencies": {
+    "discord.js": "^11.5.1"
+  }
 }
