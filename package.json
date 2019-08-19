@@ -1,0 +1,24 @@
+{
+  "name": "sentiment-bot",
+  "version": "1.0.0",
+  "description": "A Discord bot that analyzes chat messages and reacts",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/reecer62/sentiment-bot.git"
+  },
+  "keywords": [
+    "discord",
+    "bot",
+    "sentiment"
+  ],
+  "author": "Reece Emero",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/reecer62/sentiment-bot/issues"
+  },
+  "homepage": "https://github.com/reecer62/sentiment-bot#readme"
+}
