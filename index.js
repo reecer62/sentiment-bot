@@ -47,9 +47,9 @@ client.on('message', message => {
 			else {
 				words = words.join(', ')
 			}
-			message.channel.send(`${message.author.username} you ${nicejob().toLowerCase()} person, thank for spreading such ${nicejob().toLowerCase()} words like \`${words}\``)
+			message.reply(`*${nicejob().toLowerCase()}* person, thank for spreading such *${nicejob().toLowerCase()}* words like \`${words}\``)
 		}
-		else if (msgSentiment.score <= -10) {
+		else if (msgSentiment.score <= -10 || (isBotMentioned(message) && msgSentiment.score < 0)) {
 			let words = getRandomWord(msgSentiment.negative, 3)
 			if (words.length === 1) {
 				words = words[0]
@@ -58,7 +58,7 @@ client.on('message', message => {
 				words = words.join(', ')
 			}
 			const insult = insults.default().toLowerCase().slice(0, -1)
-			message.channel.send(`${message.author.username} you ${nicejob.not().toLowerCase()} person, ${insult} for spreading such ${nicejob.not().toLowerCase()} words like \`${words}\``)
+			message.reply(`you *${nicejob.not().toLowerCase()}* person, *${insult}* for spreading such ${nicejob.not().toLowerCase()} words like \`${words}\``)
 		}
 		// message.channel.send(`Message to be analyzed: ${message.content}\nMessage score: ${sentimentScore}`)
 	}
@@ -74,8 +74,19 @@ const getRandomWord = (wordList, maxWords) => {
 	return words
 }
 
-const getRandomInt = (max) => {
+const getRandomInt = max => {
 	return Math.floor(Math.random() * Math.floor(max))
+}
+
+const isBotMentioned = (message) => {
+	const mentionedUsers = message.mentions.users
+	let isMentioned = false
+	mentionedUsers.forEach(user => {
+		if (user.id === client.user.id) {
+			isMentioned = true
+		}
+	})
+	return isMentioned
 }
 
 client.login(config.token)
