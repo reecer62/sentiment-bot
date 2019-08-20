@@ -39,7 +39,7 @@ client.on('message', message => {
 		numMessages++
 		sumScore += msgSentiment.score
 		avgScore = sumScore / numMessages
-		if (msgSentiment.score > 0) {
+		if (msgSentiment.score >= 10) {
 			let words = getRandomWord(msgSentiment.positive, 3)
 			if (words.length === 1) {
 				words = words[0]
@@ -49,7 +49,7 @@ client.on('message', message => {
 			}
 			message.channel.send(`${message.author.username} you ${nicejob().toLowerCase()} person, thank for spreading such ${nicejob().toLowerCase()} words like \`${words}\``)
 		}
-		else if (msgSentiment.score < 0) {
+		else if (msgSentiment.score <= -10) {
 			let words = getRandomWord(msgSentiment.negative, 3)
 			if (words.length === 1) {
 				words = words[0]
