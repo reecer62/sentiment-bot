@@ -23,6 +23,7 @@
   "homepage": "https://github.com/reecer62/sentiment-bot#readme",
   "dependencies": {
     "discord.js": "^11.5.1",
+    "insults": "^0.1.3",
     "nicejob": "^1.0.1",
     "sentiment": "^5.0.1"
   }

@@ -1,5 +1,6 @@
 const config = require('./config.json')
 const nicejob = require('nicejob')
+const insults = require('insults')
 const Sentiment = require('sentiment')
 const sentiment = new Sentiment()
 const Discord = require('discord.js')
@@ -26,25 +27,55 @@ client.on('message', message => {
 		}
 	}
 	else if (message.author.id !== client.user.id) {
-		const sentimentScore = sentiment.analyze(message.content).score
+		const msgSentiment = sentiment.analyze(message.content)
+		// console.log(msgSentiment)
 		if (messageStack.length === 10) {
 			messageStack.pop()
 		}
 		messageStack.unshift({
-			'score': sentimentScore,
+			'score': msgSentiment.score,
 			'message': message.content,
 		})
 		numMessages++
-		sumScore += sentimentScore
+		sumScore += msgSentiment.score
 		avgScore = sumScore / numMessages
-		if (sentimentScore >= 0) {
-			message.channel.send(nicejob())
+		if (msgSentiment.score > 0) {
+			let words = getRandomWord(msgSentiment.positive, 3)
+			if (words.length === 1) {
+				words = words[0]
+			}
+			else {
+				words = words.join(', ')
+			}
+			message.channel.send(`${message.author.username} you ${nicejob().toLowerCase()} person, thank for spreading such ${nicejob().toLowerCase()} words like \`${words}\``)
 		}
-		else {
-			message.channel.send(nicejob.not())
+		else if (msgSentiment.score < 0) {
+			let words = getRandomWord(msgSentiment.negative, 3)
+			if (words.length === 1) {
+				words = words[0]
+			}
+			else {
+				words = words.join(', ')
+			}
+			const insult = insults.default().toLowerCase().slice(0, -1)
+			message.channel.send(`${message.author.username} you ${nicejob.not().toLowerCase()} person, ${insult} for spreading such ${nicejob.not().toLowerCase()} words like \`${words}\``)
 		}
 		// message.channel.send(`Message to be analyzed: ${message.content}\nMessage score: ${sentimentScore}`)
 	}
 })
+
+const getRandomWord = (wordList, maxWords) => {
+	const words = []
+	for (let i = 0; i < maxWords + 1 && i < wordList.length; i++) {
+		const randomWord = getRandomInt(wordList.length - 1)
+		words.push(wordList[randomWord])
+		wordList.splice(randomWord, 1)
+	}
+	return words
+}
+
+const getRandomInt = (max) => {
+	return Math.floor(Math.random() * Math.floor(max))
+}
 
 client.login(config.token)
