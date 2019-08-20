@@ -39,7 +39,7 @@ client.on('message', message => {
 		numMessages++
 		sumScore += msgSentiment.score
 		avgScore = sumScore / numMessages
-		if (msgSentiment.score >= 10) {
+		if (msgSentiment.score >= 5) {
 			let words = getRandomWord(msgSentiment.positive, 3)
 			if (words.length === 1) {
 				words = words[0]
